@@ -5,6 +5,12 @@ VisualStudioVersion = 17.13.35825.156 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talabat.Core", "Talabat.Core\Talabat.Core.csproj", "{BEAF4FA4-5DBE-4097-8D50-A8FABA8565D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talabat.Repository", "Talabat.Repository\Talabat.Repository.csproj", "{702D2563-E62D-4E33-AFF1-C27D12AF4ABB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talabat.Service", "Talabat.Service\Talabat.Service.csproj", "{BC699533-E56E-4083-94CA-9701652361FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talabat.APIs", "Talabat.APIs\Talabat.APIs.csproj", "{BFF518E6-E11E-4F95-B1A9-69DCC1B6DF6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{BEAF4FA4-5DBE-4097-8D50-A8FABA8565D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEAF4FA4-5DBE-4097-8D50-A8FABA8565D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEAF4FA4-5DBE-4097-8D50-A8FABA8565D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{702D2563-E62D-4E33-AFF1-C27D12AF4ABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{702D2563-E62D-4E33-AFF1-C27D12AF4ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{702D2563-E62D-4E33-AFF1-C27D12AF4ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{702D2563-E62D-4E33-AFF1-C27D12AF4ABB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC699533-E56E-4083-94CA-9701652361FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC699533-E56E-4083-94CA-9701652361FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC699533-E56E-4083-94CA-9701652361FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC699533-E56E-4083-94CA-9701652361FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFF518E6-E11E-4F95-B1A9-69DCC1B6DF6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFF518E6-E11E-4F95-B1A9-69DCC1B6DF6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFF518E6-E11E-4F95-B1A9-69DCC1B6DF6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFF518E6-E11E-4F95-B1A9-69DCC1B6DF6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
