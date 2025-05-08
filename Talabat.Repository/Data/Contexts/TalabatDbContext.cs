@@ -2,22 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Talabat.Core.Entities;
 
 namespace Talabat.Repository.Data.Contexts
 {
-    class TalabatDbContext:DbContext
+   public class TalabatDbContext:DbContext
     {
+        public TalabatDbContext(DbContextOptions<TalabatDbContext> options):base(options)
+        {
+            
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-        }
+        
 
         DbSet<Product> Products { get; set; }
         DbSet<ProductBrand> ProductBrands { get; set; }
