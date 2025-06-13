@@ -16,11 +16,11 @@ namespace Talabat.Core.Entities
 
         public decimal Price { get; set; }
 
-        public ProductBrand ProductBrand { get; set; }
+        public ProductBrand Brand { get; set; }
 
         public int BrandId { get; set; }
 
-        public ProductCategory ProductCategory { get; set; }
+        public ProductCategory Category { get; set; }
 
         public int CategoryId { get; set; }
 
