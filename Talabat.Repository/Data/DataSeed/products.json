@@ -5,7 +5,8 @@
     "Price": 200,
     "PictureUrl": "images/products/ItalianChickenMarinade.png",
     "CategoryId": 1,
-    "BrandId": 1
+    "BrandId": 1,
+    "Id": 1
   },
   {
     "Name": "Chicken Marsala",

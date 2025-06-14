@@ -1,6 +1,9 @@
 
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Talabat.Core.Entities;
+using Talabat.Core.Repostories.Contract;
+using Talabat.Repository;
 using Talabat.Repository.Data.Contexts;
 
 namespace Talabat.APIs
@@ -22,6 +25,8 @@ namespace Talabat.APIs
             {
                 op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            builder.Services.AddScoped<IGenericRepository<Product>, GenericRepository<Product>>();
 
             var app = builder.Build();
 
