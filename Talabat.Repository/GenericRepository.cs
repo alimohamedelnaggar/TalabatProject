@@ -22,7 +22,7 @@ namespace Talabat.Repository
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             if (typeof(TEntity) == typeof(Product))
-                return (IEnumerable<TEntity>)await _dbContext.Products.Include(p => p.Brand).Include(p => p.Category).ToListAsync();
+                return (IEnumerable<TEntity>)await _dbContext.Products.OrderBy(p=>p.Name).Include(p => p.Brand).Include(p => p.Category).ToListAsync();
             return await _dbContext.Set<TEntity>().ToListAsync();
         }
 

@@ -13,7 +13,7 @@ namespace Talabat.Core.specification.Products
         {
             ApplyIncludes();
         }
-        public ProductSpecification(string? sort, int? brandId, int? categoryId, int? pageSize, int? pageIndex) :base(
+        public ProductSpecification(string? sort, int? brandId, int? categoryId, int pageSize, int pageIndex) :base(
             p=>
             (!brandId.HasValue || brandId==p.BrandId)
             &&
@@ -42,6 +42,10 @@ namespace Talabat.Core.specification.Products
             }
 
             ApplyIncludes();
+            // 900
+            // page size 50
+            // page index 3
+            ApplyPagination(pageSize * (pageIndex - 1), pageSize);
         }
         public void ApplyIncludes()
         {
