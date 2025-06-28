@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Talabat.Core.Entities
 {
-    public class BaseEntity
+    public class BaseEntity<TKey>
     {
         public int Id { get; set; }
     }

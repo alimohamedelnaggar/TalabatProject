@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Talabat.Core.Entities;
 
-namespace Talabat.Core.Entities
+namespace Talabat.Core.Dtos
 {
-    public class Product:BaseEntity<int>
+    public class ProductDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -16,13 +18,12 @@ namespace Talabat.Core.Entities
 
         public decimal Price { get; set; }
 
-        public ProductBrand Brand { get; set; }
+        public string BrandName { get; set; }
 
         public int BrandId { get; set; }
 
-        public ProductCategory Category { get; set; }
+        public string CategoryName { get; set; }
 
         public int CategoryId { get; set; }
-
     }
 }
