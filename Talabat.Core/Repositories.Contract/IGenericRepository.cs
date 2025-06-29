@@ -14,5 +14,6 @@ namespace Talabat.Core.Repostories.Contract
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity?> GetWithSpecAsync(ISpecification<TEntity, TKey> specification);
         Task<IEnumerable<TEntity>> GetAllWithSpecAsync(ISpecification<TEntity,TKey> specification);
+        Task<int> GetCountAsync(ISpecification<TEntity, TKey> specification);
     }
 }

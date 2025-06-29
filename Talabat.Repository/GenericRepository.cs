@@ -28,21 +28,28 @@ namespace Talabat.Repository
 
         public async Task<IEnumerable<TEntity>> GetAllWithSpecAsync(ISpecification<TEntity, TKey> specification)
         {
-            return await SpecificationEvaluator<TEntity,TKey>.GetQuery(_dbContext.Set<TEntity>(),specification).ToListAsync();
+            return await ApplySpecification(specification).ToListAsync();
         }
 
         public async Task<TEntity?> GetAsync(int id)
         {
             if (typeof(TEntity) == typeof(Product))
                 return await _dbContext.Products.Where(p => p.Id == id).Include(p => p.Brand).Include(p => p.Category).FirstOrDefaultAsync(p => p.Id == id) as TEntity;
-
-
             return await _dbContext.Set<TEntity>().FindAsync(id);
+        }
+
+        public async Task<int> GetCountAsync(ISpecification<TEntity, TKey> specification)
+        {
+            return await  ApplySpecification(specification).CountAsync();
         }
 
         public async Task<TEntity?> GetWithSpecAsync(ISpecification<TEntity, TKey> specification)
         {
-            return await SpecificationEvaluator<TEntity, TKey>.GetQuery(_dbContext.Set<TEntity>(), specification).FirstOrDefaultAsync();
+            return await ApplySpecification(specification).FirstOrDefaultAsync();
+        }
+        private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity,TKey> specification)
+        {
+            return  SpecificationEvaluator<TEntity, TKey>.GetQuery(_dbContext.Set<TEntity>(), specification);
         }
     }
 }

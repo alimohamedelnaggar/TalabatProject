@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Talabat.Core;
 using Talabat.Core.Dtos;
 using Talabat.Core.Entities;
+using Talabat.Core.Helper;
 using Talabat.Core.Service.Contract;
 using Talabat.Core.specification.Products;
 
@@ -24,10 +25,13 @@ namespace Talabat.Service.ProductsService
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(ProductSpecParams @params)
+        public async Task<PaginationResponse<ProductDto>> GetAllProductsAsync(ProductSpecParams productSpec)
         {
-            var specification = new ProductSpecification(@params);
-           return mapper.Map<IEnumerable<ProductDto>>(await unitOfWork.Repository<Product, int>().GetAllWithSpecAsync(specification));
+            var specification = new ProductSpecification(productSpec);
+           var result= mapper.Map<IEnumerable<ProductDto>>(await unitOfWork.Repository<Product, int>().GetAllWithSpecAsync(specification));
+            var countspec = new ProductCountSpecification(productSpec);
+            var count = await unitOfWork.Repository<Product,int>().GetCountAsync(countspec);
+            return new PaginationResponse<ProductDto>(productSpec.pageSize, productSpec.pageIndex, count, result);
             
         }
         public async Task<ProductDto> GetProductAsync(int id)
