@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Talabat.Core.Entities;
 using Talabat.Core.Repostories.Contract;
 using Talabat.Core.Service.Contract;
+using Talabat.Core.specification.Products;
 
 namespace Talabat.APIs.Controllers
 {
@@ -22,9 +23,9 @@ namespace Talabat.APIs.Controllers
         // page size (number of product )
         // page index number of page 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetAllProducts([FromQuery]string? sort,[FromQuery]int? brandId,[FromQuery] int? categoryId, [FromQuery] int? pageSize=5, [FromQuery] int? pageIndex=1)
+        public async Task<ActionResult<IEnumerable<Product>>> GetAllProducts([FromQuery] ProductSpecParams @params)
         {
-            var products =await productService.GetAllProductsAsync(sort,brandId,categoryId,pageSize,pageIndex);
+            var products =await productService.GetAllProductsAsync(@params);
             return Ok(products);
         }
         [HttpGet("category")]

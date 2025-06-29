@@ -24,9 +24,9 @@ namespace Talabat.Service.ProductsService
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(string? sort, int? brandId, int? categoryId, int? pageSize, int? pageIndex)
+        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(ProductSpecParams @params)
         {
-            var specification = new ProductSpecification(sort, brandId, categoryId, pageSize.Value,pageIndex.Value);
+            var specification = new ProductSpecification(@params);
            return mapper.Map<IEnumerable<ProductDto>>(await unitOfWork.Repository<Product, int>().GetAllWithSpecAsync(specification));
             
         }
