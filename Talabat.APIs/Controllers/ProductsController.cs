@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Talabat.Core.Dtos;
 using Talabat.Core.Entities;
+using Talabat.Core.Helper;
 using Talabat.Core.Repostories.Contract;
 using Talabat.Core.Service.Contract;
 using Talabat.Core.specification.Products;
@@ -23,10 +25,10 @@ namespace Talabat.APIs.Controllers
         // page size (number of product )
         // page index number of page 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetAllProducts([FromQuery] ProductSpecParams @params)
+        public async Task<IActionResult> GetAllProducts([FromQuery] ProductSpecParams productSpec)
         {
-            var products =await productService.GetAllProductsAsync(@params);
-            return Ok(products);
+            var products =await productService.GetAllProductsAsync(productSpec);
+            return Ok(new PaginationResponse<ProductDto>(productSpec.pageSize,productSpec.pageIndex,0,products));
         }
         [HttpGet("category")]
         public async Task<ActionResult<IEnumerable<Product>>> GetCategory()
