@@ -12,6 +12,8 @@ namespace Talabat.Core.specification.Products
         public ProductCountSpecification(ProductSpecParams productSpec)
             :base(
             p =>
+            (string.IsNullOrEmpty(productSpec.Search) || p.Name.ToLower().Contains(productSpec.Search))
+            &&
             (!productSpec.brandId.HasValue || productSpec.brandId == p.BrandId)
             &&
             (!productSpec.categoryId.HasValue || productSpec.categoryId == p.CategoryId)

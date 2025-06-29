@@ -13,17 +13,19 @@ namespace Talabat.Core.specification.Products
         {
             ApplyIncludes();
         }
-        public ProductSpecification(ProductSpecParams specParams) :base(
-            p=>
-            (!specParams.brandId.HasValue || specParams.brandId ==p.BrandId)
+        public ProductSpecification(ProductSpecParams productSpec) : base(
+            p =>
+            (string.IsNullOrEmpty(productSpec.Search) || p.Name.ToLower().Contains(productSpec.Search))
             &&
-            (!specParams.categoryId.HasValue || specParams.categoryId == p.CategoryId)
+            (!productSpec.brandId.HasValue || productSpec.brandId == p.BrandId)
+            &&
+            (!productSpec.categoryId.HasValue || productSpec.categoryId == p.CategoryId)
             )
         {
 
-            if (!string.IsNullOrEmpty(specParams.sort))
+            if (!string.IsNullOrEmpty(productSpec.sort))
             {
-                switch (specParams.sort)
+                switch (productSpec.sort)
                 {
                     case "priceAsc":
                         AddOrderBy(p => p.Price);
@@ -45,7 +47,7 @@ namespace Talabat.Core.specification.Products
             // 900
             // page size 50
             // page index 3
-            ApplyPagination(specParams.pageSize * (specParams.pageIndex - 1),specParams.pageSize);
+            ApplyPagination(productSpec.pageSize * (productSpec.pageIndex - 1),productSpec.pageSize);
         }
         public void ApplyIncludes()
         {
