@@ -23,9 +23,9 @@ namespace Talabat.APIs.Controllers
         // page size (number of product )
         // page index number of page 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetAllProducts([FromQuery] ProductSpecParams @params)
+        public async Task<ActionResult<IEnumerable<Product>>> GetAllProducts([FromQuery] ProductSpecParams productSpec)
         {
-            var products =await productService.GetAllProductsAsync(@params);
+            var products =await productService.GetAllProductsAsync(productSpec);
             return Ok(products);
         }
         [HttpGet("category")]
