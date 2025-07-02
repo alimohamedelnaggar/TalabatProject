@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MiddleWares\" />
+    <Folder Include="Helper\" />
   </ItemGroup>
 
 </Project>

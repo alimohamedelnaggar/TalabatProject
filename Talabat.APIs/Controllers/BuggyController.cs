@@ -6,9 +6,8 @@ using Talabat.Repository.Data.Contexts;
 
 namespace Talabat.APIs.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class BuggyController : ControllerBase
+   
+    public class BuggyController : BaseApiController
     {
         private readonly TalabatDbContext dbContext;
 
