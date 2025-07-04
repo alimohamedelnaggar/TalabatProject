@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Talabat.Service\Talabat.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Helper\" />
-  </ItemGroup>
-
 </Project>
