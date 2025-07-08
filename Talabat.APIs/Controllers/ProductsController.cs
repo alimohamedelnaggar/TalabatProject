@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Talabat.APIs.Error;
-using Talabat.Core.Dtos;
+using Talabat.Core.Dtos.Product;
 using Talabat.Core.Entities;
 using Talabat.Core.Helper;
 using Talabat.Core.Repostories.Contract;

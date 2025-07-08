@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Talabat.Core;
-using Talabat.Core.Dtos;
+using Talabat.Core.Dtos.Product;
 using Talabat.Core.Entities;
 using Talabat.Core.Helper;
 using Talabat.Core.Service.Contract;

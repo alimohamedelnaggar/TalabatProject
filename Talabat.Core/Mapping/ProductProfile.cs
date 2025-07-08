@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Talabat.Core.Dtos;
+using Talabat.Core.Dtos.Product;
 using Talabat.Core.Entities;
 
 namespace Talabat.Core.Mapping
