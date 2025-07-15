@@ -10,6 +10,7 @@ using Talabat.Core.Service.Contract;
 using Talabat.Repository;
 using Talabat.Repository.Data.Contexts;
 using Talabat.Repository.Repositories;
+using Talabat.Service.CacheService;
 using Talabat.Service.ProductsService;
 
 namespace Talabat.APIs.Helper
@@ -60,6 +61,7 @@ namespace Talabat.APIs.Helper
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<ICacheService, CacheService>();
             return services;
         }
         private static IServiceCollection AddAutoMapperService(this IServiceCollection services,IConfiguration configuration)

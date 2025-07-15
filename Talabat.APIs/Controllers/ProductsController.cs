@@ -28,7 +28,7 @@ namespace Talabat.APIs.Controllers
         // page index number of page 
         [ProducesResponseType(typeof(PaginationResponse<ProductDto>),200)]
         [HttpGet]
-        [Cache(10)]
+        [Cache(100)]
         public async Task<ActionResult<PaginationResponse<ProductDto>>> GetAllProducts([FromQuery] ProductSpecParams productSpec)
         {
             var products =await productService.GetAllProductsAsync(productSpec);
