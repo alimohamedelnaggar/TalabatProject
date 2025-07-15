@@ -36,6 +36,6 @@ namespace Talabat.Repository
             return query;
         }
 
-
+            
     }
 }
