@@ -27,11 +27,15 @@ namespace Talabat.Repository
             {
                 query = query.OrderByDescending(specification.OrderByDesc);
             }
+            if (specification.IsPagination)
+            {
+                query= query.Skip(specification.Skip).Take(specification.Take);
+            }
             query = specification.Includes.Aggregate(query, (currentQuery, includes) => currentQuery.Include(includes));
 
             return query;
         }
 
-
+            
     }
 }

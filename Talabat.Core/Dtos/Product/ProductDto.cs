@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Talabat.Core.Entities;
 
-namespace Talabat.Core.Dtos
+namespace Talabat.Core.Dtos.Product
 {
     public class ProductDto
     {
