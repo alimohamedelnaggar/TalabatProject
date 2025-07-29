@@ -1,17 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 using Talabat.APIs.Errors;
 using Talabat.Core;
+using Talabat.Core.Identity;
 using Talabat.Core.Mapping;
 using Talabat.Core.Mapping.Basket;
 using Talabat.Core.Repositories.Contract;
 using Talabat.Core.Service.Contract;
 using Talabat.Repository;
 using Talabat.Repository.Data.Contexts;
+using Talabat.Repository.Identity.Contexts;
 using Talabat.Repository.Repositories;
 using Talabat.Service.CacheService;
 using Talabat.Service.ProductsService;
+using Talabat.Service.Token;
 
 namespace Talabat.APIs.Helper
 {
@@ -31,6 +35,7 @@ namespace Talabat.APIs.Helper
             services.AddAutoMapperService(configuration);
             services.AddConfigureInvalidModelStateResponseService();
             services.AddRedisService(configuration);
+            services.AddIdentityService();
             return services;
         } 
         private static IServiceCollection AddDbContextService(this IServiceCollection services,IConfiguration configuration)
@@ -38,6 +43,10 @@ namespace Talabat.APIs.Helper
             services.AddDbContext<TalabatDbContext>(op =>
             {
                 op.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            });
+            services.AddDbContext<StoreIdentityDbContext>(op =>
+            {
+                op.UseSqlServer(configuration.GetConnectionString("IdentityConnection"));
             });
             return services;
         }
@@ -62,12 +71,18 @@ namespace Talabat.APIs.Helper
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<ICacheService, CacheService>();
+            services.AddScoped<ITokenService, TokenService>();
             return services;
         }
         private static IServiceCollection AddAutoMapperService(this IServiceCollection services,IConfiguration configuration)
         {
             services.AddAutoMapper(m => m.AddProfile(new ProductProfile(configuration)));
             services.AddAutoMapper(m => m.AddProfile(new BasketProfile()));
+            return services;
+        }
+        private static IServiceCollection AddIdentityService(this IServiceCollection services)
+        {
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<StoreIdentityDbContext>();
             return services;
         }
         private static IServiceCollection AddConfigureInvalidModelStateResponseService(this IServiceCollection services)
