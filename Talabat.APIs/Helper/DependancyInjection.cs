@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using StackExchange.Redis;
+using System.Text;
 using Talabat.APIs.Errors;
 using Talabat.Core;
 using Talabat.Core.Identity;
 using Talabat.Core.Mapping;
+using Talabat.Core.Mapping.Auth;
 using Talabat.Core.Mapping.Basket;
 using Talabat.Core.Repositories.Contract;
 using Talabat.Core.Service.Contract;
@@ -16,6 +20,7 @@ using Talabat.Repository.Repositories;
 using Talabat.Service.CacheService;
 using Talabat.Service.ProductsService;
 using Talabat.Service.Token;
+using Talabat.Service.Users;
 
 namespace Talabat.APIs.Helper
 {
@@ -36,6 +41,8 @@ namespace Talabat.APIs.Helper
             services.AddConfigureInvalidModelStateResponseService();
             services.AddRedisService(configuration);
             services.AddIdentityService();
+            services.AddAuthenticationService(configuration);
+            services.AddGoogleAuthenticationService(configuration);
             return services;
         } 
         private static IServiceCollection AddDbContextService(this IServiceCollection services,IConfiguration configuration)
@@ -72,12 +79,47 @@ namespace Talabat.APIs.Helper
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<ICacheService, CacheService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserService, UserService>();
+            return services;
+        }
+        private static IServiceCollection AddGoogleAuthenticationService(this IServiceCollection services,IConfiguration configuration)
+        {
+            services.AddAuthentication().AddGoogle(op =>
+            {
+                IConfigurationSection googleAuthSection = configuration.GetSection("Auth:Google");
+                op.ClientId = googleAuthSection["ClientId"];
+                op.ClientSecret = googleAuthSection["ClientSecret"];
+            });
+            return services;
+        }
+        private static IServiceCollection AddAuthenticationService(this IServiceCollection services,IConfiguration configuration)
+        {
+            services.AddAuthentication(op =>
+            {
+                op.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                op.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(op =>
+            {
+                op.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = configuration["JWT:Issuer"],
+                    ValidateAudience = true,
+                    ValidAudience = configuration["JWT:Audience"],
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"]))
+                };
+            });
+            
             return services;
         }
         private static IServiceCollection AddAutoMapperService(this IServiceCollection services,IConfiguration configuration)
         {
             services.AddAutoMapper(m => m.AddProfile(new ProductProfile(configuration)));
             services.AddAutoMapper(m => m.AddProfile(new BasketProfile()));
+            services.AddAutoMapper(m => m.AddProfile(new AuthProfile()));
             return services;
         }
         private static IServiceCollection AddIdentityService(this IServiceCollection services)
