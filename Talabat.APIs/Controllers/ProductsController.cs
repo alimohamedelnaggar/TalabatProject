@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Talabat.APIs.Attributes;
 using Talabat.APIs.Error;
@@ -28,7 +29,8 @@ namespace Talabat.APIs.Controllers
         // page index number of page 
         [ProducesResponseType(typeof(PaginationResponse<ProductDto>),200)]
         [HttpGet]
-        [Cache(10)]
+        [Cache(100)]
+        [Authorize]
         public async Task<ActionResult<PaginationResponse<ProductDto>>> GetAllProducts([FromQuery] ProductSpecParams productSpec)
         {
             var products =await productService.GetAllProductsAsync(productSpec);

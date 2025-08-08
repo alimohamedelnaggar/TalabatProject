@@ -35,6 +35,7 @@ namespace Talabat.APIs.MiddleWares
                     : new ExceptionResponse(StatusCodes.Status500InternalServerError);
                 var option=new JsonSerializerOptions { PropertyNamingPolicy=JsonNamingPolicy.CamelCase };
                await context.Response.WriteAsync(JsonSerializer.Serialize(response,option));
+                
             }
 
         }
