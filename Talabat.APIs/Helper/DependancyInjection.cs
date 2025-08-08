@@ -11,6 +11,7 @@ using Talabat.Core.Identity;
 using Talabat.Core.Mapping;
 using Talabat.Core.Mapping.Auth;
 using Talabat.Core.Mapping.Basket;
+using Talabat.Core.Mapping.Orders;
 using Talabat.Core.Repositories.Contract;
 using Talabat.Core.Service.Contract;
 using Talabat.Repository;
@@ -18,6 +19,7 @@ using Talabat.Repository.Data.Contexts;
 using Talabat.Repository.Identity.Contexts;
 using Talabat.Repository.Repositories;
 using Talabat.Service.CacheService;
+using Talabat.Service.Order;
 using Talabat.Service.ProductsService;
 using Talabat.Service.Token;
 using Talabat.Service.Users;
@@ -80,6 +82,7 @@ namespace Talabat.APIs.Helper
             services.AddScoped<ICacheService, CacheService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IOrderService, OrderService>();
             return services;
         }
         private static IServiceCollection AddGoogleAuthenticationService(this IServiceCollection services,IConfiguration configuration)
@@ -120,6 +123,7 @@ namespace Talabat.APIs.Helper
             services.AddAutoMapper(m => m.AddProfile(new ProductProfile(configuration)));
             services.AddAutoMapper(m => m.AddProfile(new BasketProfile()));
             services.AddAutoMapper(m => m.AddProfile(new AuthProfile()));
+            services.AddAutoMapper(m => m.AddProfile(new OrderProfile(configuration)));
             return services;
         }
         private static IServiceCollection AddIdentityService(this IServiceCollection services)
